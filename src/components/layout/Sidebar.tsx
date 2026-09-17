@@ -55,36 +55,42 @@ export default function Sidebar({
           ${mobileOpen ? "translate-x-0" : "-translate-x-full"}
         `}
       >
-        {/* Brand */}
-        <div className="flex items-center justify-between border-b border-zinc-800 px-5 py-6">
-          <Link
-            href="/dashboard"
-            onClick={onClose}
-            className="flex items-center gap-3"
-          >
-            <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-amber-600 font-serif text-lg font-bold text-zinc-950">
-              221B
-            </div>
+{/* Brand */}
+<div className="flex items-center justify-between border-b border-zinc-800 px-5 py-6">
+  <Link
+    href="/dashboard"
+    onClick={onClose}
+    className="group flex items-center gap-3"
+  >
+    <div className="relative flex h-11 w-11 items-center justify-center rounded-lg border border-zinc-800 bg-zinc-900 transition-colors group-hover:border-amber-600/50">
+      <Search
+        size={20}
+        strokeWidth={2.25}
+        className="text-amber-500"
+      />
+      <span className="absolute -bottom-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-amber-600 text-[9px] font-bold text-zinc-950">
+        B
+      </span>
+    </div>
 
-            <div>
-              <h1 className="font-serif text-lg text-zinc-100">
-                Holmes
-              </h1>
+    <div>
+      <h1 className="font-serif text-lg leading-none text-zinc-100">
+        Holmes<span className="text-amber-500">.</span>
+      </h1>
+      <p className="mt-1 text-[11px] uppercase tracking-[0.18em] text-zinc-500">
+        221B Baker Street
+      </p>
+    </div>
+  </Link>
 
-              <p className="text-xs text-zinc-500">
-                Intelligence System
-              </p>
-            </div>
-          </Link>
-
-          <button
-            onClick={onClose}
-            className="rounded-lg p-2 text-zinc-500 hover:bg-zinc-900 hover:text-zinc-100 md:hidden"
-            aria-label="Close menu"
-          >
-            <X size={20} />
-          </button>
-        </div>
+  <button
+    onClick={onClose}
+    className="rounded-lg p-2 text-zinc-500 hover:bg-zinc-900 hover:text-zinc-100 md:hidden"
+    aria-label="Close menu"
+  >
+    <X size={20} />
+  </button>
+</div>
 
         {/* Search */}
         <div className="px-4 py-5">
