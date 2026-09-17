@@ -11,7 +11,7 @@ import {
   Trash2,
   X,
 } from "lucide-react";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 
 type NodeType = "Evidence" | "Observation" | "Suspect" | "Deduction";
 
@@ -96,6 +96,20 @@ const columnDescriptions: Record<NodeType, string> = {
 };
 
 export default function DeductionBoardPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="mx-auto max-w-[1600px] py-12 text-sm text-zinc-500">
+          Loading deduction board...
+        </div>
+      }
+    >
+      <DeductionBoardContent />
+    </Suspense>
+  );
+}
+
+function DeductionBoardContent() {
   const searchParams = useSearchParams();
   const caseId = searchParams.get("case") || "27";
 

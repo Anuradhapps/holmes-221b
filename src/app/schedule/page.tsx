@@ -13,15 +13,7 @@ import {
 import AddEventModal from "@/src/components/schedule/AddEventModal";
 import ConflictModal from "@/src/components/schedule/ConflictModal";
 
-type ScheduleEvent = {
-  id: number;
-  title: string;
-  start: string;
-  end: string;
-  location: string;
-  category: string;
-  priority: string;
-};
+import type { ScheduleEvent } from "@/src/types/schedule";
 
 const initialEvents: ScheduleEvent[] = [
   {

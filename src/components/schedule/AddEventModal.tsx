@@ -2,19 +2,11 @@
 
 import { X } from "lucide-react";
 import { useState } from "react";
-
-type Event = {
-  time: string;
-  end: string;
-  title: string;
-  location: string;
-  category: string;
-  priority: string;
-};
+import type { ScheduleEvent } from "@/src/types/schedule";
 
 type AddEventModalProps = {
   onClose: () => void;
-  onAdd: (event: Event) => void;
+  onAdd: (event: ScheduleEvent) => void;
 };
 
 export default function AddEventModal({
@@ -33,22 +25,23 @@ export default function AddEventModal({
 
     if (!title.trim()) return;
 
-    onAdd({
-      time: start,
+    const newEvent: ScheduleEvent = {
+      id: Date.now(),
+      title: title.trim(),
+      start,
       end,
-      title,
       location: location || "221B Baker Street",
       category,
       priority,
-    });
+    };
 
+    onAdd(newEvent);
     onClose();
   }
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm">
       <div className="w-full max-w-lg rounded-2xl border border-zinc-800 bg-zinc-950 shadow-2xl">
-
         <div className="flex items-center justify-between border-b border-zinc-800 p-6">
           <div>
             <h2 className="font-serif text-2xl text-zinc-100">
@@ -69,7 +62,6 @@ export default function AddEventModal({
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-5 p-6">
-
           <div>
             <label className="mb-2 block text-sm text-zinc-400">
               Event Name
@@ -84,7 +76,6 @@ export default function AddEventModal({
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-
             <div>
               <label className="mb-2 block text-sm text-zinc-400">
                 Start
@@ -110,7 +101,6 @@ export default function AddEventModal({
                 className="w-full rounded-lg border border-zinc-800 bg-zinc-900 px-4 py-3 text-sm text-zinc-100 outline-none focus:border-amber-600"
               />
             </div>
-
           </div>
 
           <div>
@@ -127,7 +117,6 @@ export default function AddEventModal({
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-
             <div>
               <label className="mb-2 block text-sm text-zinc-400">
                 Category
@@ -162,11 +151,9 @@ export default function AddEventModal({
                 <option>Urgent</option>
               </select>
             </div>
-
           </div>
 
           <div className="flex justify-end gap-3 border-t border-zinc-800 pt-5">
-
             <button
               type="button"
               onClick={onClose}
@@ -181,11 +168,10 @@ export default function AddEventModal({
             >
               Add Event
             </button>
-
           </div>
-
         </form>
       </div>
     </div>
   );
 }
+
