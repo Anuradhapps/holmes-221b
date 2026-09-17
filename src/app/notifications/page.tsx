@@ -93,7 +93,7 @@ export default function NotificationsPage() {
   }
 
   return (
-    <div className="mx-auto max-w-4xl space-y-8">
+    <div className="mx-auto space-y-8">
 
       {/* Header */}
       <div className="flex flex-col justify-between gap-5 md:flex-row md:items-end">
