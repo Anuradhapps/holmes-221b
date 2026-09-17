@@ -20,6 +20,8 @@ const cases = [
     priority: "Critical",
     location: "Mayfair",
     updated: "12 minutes ago",
+    image:
+      "https://images.unsplash.com/photo-1617038220319-276d3cfab638?auto=format&fit=crop&w=900&q=80",
   },
   {
     id: 31,
@@ -30,6 +32,8 @@ const cases = [
     priority: "Urgent",
     location: "221B Baker Street",
     updated: "18 minutes ago",
+    image:
+      "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=900&q=80",
   },
   {
     id: 42,
@@ -40,6 +44,8 @@ const cases = [
     priority: "Important",
     location: "Westminster",
     updated: "1 hour ago",
+    image:
+      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80",
   },
   {
     id: 19,
@@ -50,6 +56,8 @@ const cases = [
     priority: "Important",
     location: "Whitechapel",
     updated: "2 hours ago",
+    image:
+      "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=900&q=80",
   },
   {
     id: 8,
@@ -60,6 +68,8 @@ const cases = [
     priority: "Routine",
     location: "Soho",
     updated: "Yesterday",
+    image:
+      "https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=900&q=80",
   },
   {
     id: 14,
@@ -70,6 +80,8 @@ const cases = [
     priority: "Routine",
     location: "Kensington",
     updated: "3 days ago",
+    image:
+      "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=900&q=80",
   },
 ];
 
@@ -202,22 +214,17 @@ export default function CasesPage() {
             <Link
               key={item.id}
               href={`/cases/${item.id}`}
-              className="group flex flex-col rounded-xl border border-zinc-800 bg-zinc-900/60 p-5 transition-all hover:-translate-y-0.5 hover:border-zinc-700 hover:bg-zinc-900"
+              className="group flex flex-col overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900/60 transition-all hover:-translate-y-0.5 hover:border-zinc-700 hover:bg-zinc-900"
             >
-              {/* Top */}
-              <div className="flex items-start justify-between gap-3">
-                <div>
-                  <p className="font-mono text-[10px] tracking-wider text-zinc-600">
-                    CASE #{String(item.id).padStart(2, "0")}
-                  </p>
-
-                  <h2 className="mt-2 font-serif text-xl text-zinc-100 group-hover:text-amber-400">
-                    {item.title}
-                  </h2>
-                </div>
-
+              <div className="relative h-40 overflow-hidden border-b border-zinc-800 bg-zinc-950">
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/15 to-transparent" />
                 <span
-                  className={`rounded-full border px-2 py-0.5 text-[10px] ${priorityClass(
+                  className={`absolute right-3 top-3 rounded-full border px-2 py-0.5 text-[10px] ${priorityClass(
                     item.priority,
                   )}`}
                 >
@@ -225,37 +232,52 @@ export default function CasesPage() {
                 </span>
               </div>
 
-              {/* Description */}
-              <p className="mt-4 flex-1 text-sm leading-6 text-zinc-500">
-                {item.description}
-              </p>
+              <div className="p-5">
+                {/* Top */}
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <p className="font-mono text-[10px] tracking-wider text-zinc-600">
+                      CASE #{String(item.id).padStart(2, "0")}
+                    </p>
 
-              {/* Meta */}
-              <div className="mt-5 space-y-2 border-t border-zinc-800 pt-4">
-                <div className="flex items-center justify-between">
-                  <span className="flex items-center gap-2 text-xs text-zinc-500">
-                    <MapPin size={13} />
-                    {item.location}
-                  </span>
-
-                  <span
-                    className={`text-xs font-medium ${statusClass(
-                      item.status,
-                    )}`}
-                  >
-                    {item.status}
-                  </span>
+                    <h2 className="mt-2 font-serif text-xl text-zinc-100 group-hover:text-amber-400">
+                      {item.title}
+                    </h2>
+                  </div>
                 </div>
 
-                <div className="flex items-center justify-between">
-                  <span className="text-[10px] text-zinc-600">
-                    Updated {item.updated}
-                  </span>
+                {/* Description */}
+                <p className="mt-4 flex-1 text-sm leading-6 text-zinc-500">
+                  {item.description}
+                </p>
 
-                  <span className="inline-flex items-center gap-1 text-xs text-zinc-600 transition group-hover:text-amber-500">
-                    Open
-                    <ArrowRight size={13} />
-                  </span>
+                {/* Meta */}
+                <div className="mt-5 space-y-2 border-t border-zinc-800 pt-4">
+                  <div className="flex items-center justify-between">
+                    <span className="flex items-center gap-2 text-xs text-zinc-500">
+                      <MapPin size={13} />
+                      {item.location}
+                    </span>
+
+                    <span
+                      className={`text-xs font-medium ${statusClass(
+                        item.status,
+                      )}`}
+                    >
+                      {item.status}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] text-zinc-600">
+                      Updated {item.updated}
+                    </span>
+
+                    <span className="inline-flex items-center gap-1 text-xs text-zinc-600 transition group-hover:text-amber-500">
+                      Open
+                      <ArrowRight size={13} />
+                    </span>
+                  </div>
                 </div>
               </div>
             </Link>

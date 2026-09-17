@@ -33,6 +33,7 @@ type CaseData = {
   priority: "Routine" | "Important" | "Critical" | "Urgent";
   location: string;
   updated: string;
+  image: string;
   summary: string;
   progress: number;
   suspects: Suspect[];
@@ -48,6 +49,8 @@ const cases: Record<string, CaseData> = {
     priority: "Critical",
     location: "Mayfair",
     updated: "12 minutes ago",
+    image:
+      "https://images.unsplash.com/photo-1617038220319-276d3cfab638?auto=format&fit=crop&w=1200&q=80",
     summary:
       "A valuable sapphire disappeared from a locked study during a private gathering in Mayfair. The room shows signs of forced entry, but several observations suggest the window may have been opened from inside.",
     progress: 68,
@@ -101,6 +104,8 @@ const cases: Record<string, CaseData> = {
     priority: "Urgent",
     location: "221B Baker Street",
     updated: "18 minutes ago",
+    image:
+      "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1200&q=80",
     summary:
       "Inspector Lestrade has requested immediate assistance after a coded letter was delivered to 221B Baker Street. The message appears to reference an ongoing investigation and contains an unidentified sequence of numbers.",
     progress: 34,
@@ -155,6 +160,8 @@ const cases: Record<string, CaseData> = {
     priority: "Important",
     location: "Westminster",
     updated: "1 hour ago",
+    image:
+      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1200&q=80",
     summary:
       "A suspicious visitor with distinctive red hair was reported near Westminster after meeting an unidentified government official. Further witness information is required before the investigation can proceed.",
     progress: 21,
@@ -291,6 +298,14 @@ export default function CaseDetailPage() {
           </Link>
         </div>
       </section>
+
+      <div className="overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900/50">
+        <img
+          src={caseData.image}
+          alt={caseData.title}
+          className="h-64 w-full object-cover sm:h-80"
+        />
+      </div>
 
       <div className="grid gap-6 xl:grid-cols-[1.6fr_1fr]">
         {/* Main */}
