@@ -51,7 +51,7 @@ export default function Sidebar({
           fixed inset-y-0 left-0 z-50 flex w-72 flex-col
           border-r border-zinc-800 bg-zinc-950
           transition-transform duration-300
-          md:static md:z-auto md:w-64 md:translate-x-0
+          md:sticky md:top-0 md:z-auto md:h-screen md:w-64 md:translate-x-0
           ${mobileOpen ? "translate-x-0" : "-translate-x-full"}
         `}
       >
