@@ -11,7 +11,18 @@ import {
 
 import { useState } from "react";
 import AddEventModal from "@/src/components/schedule/AddEventModal";
-const initialEvents = [
+import ConflictModal from "@/src/components/schedule/ConflictModal";
+
+type ScheduleEvent = {
+  time: string;
+  end: string;
+  title: string;
+  location: string;
+  category: string;
+  priority: string;
+};
+
+const initialEvents: ScheduleEvent[] = [
   {
     time: "08:00",
     end: "09:00",
@@ -79,8 +90,27 @@ const initialEvents = [
 ];
 
 export default function SchedulePage() {
-  const [events, setEvents] = useState(initialEvents);
+  const [events, setEvents] = useState<ScheduleEvent[]>(initialEvents);
   const [showAddModal, setShowAddModal] = useState(false);
+  const [conflict, setConflict] = useState<{
+    existingEvent: ScheduleEvent;
+    newEvent: ScheduleEvent;
+  } | null>(null);
+
+  function timeToMinutes(time: string) {
+    const [hours, minutes] = time.split(":").map(Number);
+    return hours * 60 + minutes;
+  }
+
+  function eventsOverlap(first: ScheduleEvent, second: ScheduleEvent) {
+    const firstStart = timeToMinutes(first.time);
+    const firstEnd = timeToMinutes(first.end);
+
+    const secondStart = timeToMinutes(second.time);
+    const secondEnd = timeToMinutes(second.end);
+
+    return firstStart < secondEnd && secondStart < firstEnd;
+  }
 
   return (
     <>
@@ -145,8 +175,41 @@ export default function SchedulePage() {
       {showAddModal && (
         <AddEventModal
           onClose={() => setShowAddModal(false)}
-          onAdd={(event) => {
-            setEvents((current) => [...current, event]);
+          onAdd={(newEvent) => {
+            const conflictingEvent = events.find((existingEvent) =>
+              eventsOverlap(existingEvent, newEvent)
+            );
+
+            if (conflictingEvent) {
+              setConflict({
+                existingEvent: conflictingEvent,
+                newEvent,
+              });
+
+              setShowAddModal(false);
+              return;
+            }
+
+            setEvents((current) => [...current, newEvent]);
+            setShowAddModal(false);
+          }}
+        />
+      )}
+
+      {conflict && (
+        <ConflictModal
+          existingEvent={conflict.existingEvent}
+          newEvent={conflict.newEvent}
+          onReschedule={() => {
+            setConflict(null);
+            setShowAddModal(true);
+          }}
+          onAcceptBoth={() => {
+            setEvents((current) => [...current, conflict.newEvent]);
+            setConflict(null);
+          }}
+          onCancel={() => {
+            setConflict(null);
           }}
         />
       )}
