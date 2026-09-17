@@ -1,85 +1,238 @@
 "use client";
 
 import Link from "next/link";
+import { useParams } from "next/navigation";
 import {
   ArrowLeft,
   ArrowRight,
-  BriefcaseBusiness,
   Clock3,
-  FileText,
   MapPin,
   Network,
   Search,
-  UserRound,
+  ShieldAlert,
+  User,
 } from "lucide-react";
 
-const caseData = {
+type Suspect = {
+  name: string;
+  role: string;
+  risk: "Low" | "Medium" | "High";
+};
+
+type Evidence = {
+  title: string;
+  type: string;
+  description: string;
+  confidence: "Low" | "Medium" | "High";
+};
+
+type CaseData = {
+  id: string;
+  title: string;
+  status: string;
+  priority: "Routine" | "Important" | "Critical" | "Urgent";
+  location: string;
+  updated: string;
+  summary: string;
+  progress: number;
+  suspects: Suspect[];
+  evidence: Evidence[];
+  deduction: string;
+};
+
+const cases: Record<string, CaseData> = {
   "27": {
-    number: "#27",
+    id: "27",
     title: "The Missing Sapphire",
     status: "Investigating",
     priority: "Critical",
     location: "Mayfair",
     updated: "12 minutes ago",
     summary:
-      "A valuable sapphire disappeared from a locked study in Mayfair. There were no obvious signs of forced entry, suggesting that the person responsible may have had access to the property.",
+      "A valuable sapphire disappeared from a locked study during a private gathering in Mayfair. The room shows signs of forced entry, but several observations suggest the window may have been opened from inside.",
+    progress: 68,
     suspects: [
       {
         name: "Lord Harrington",
         role: "Property Owner",
-        confidence: "Medium",
+        risk: "Medium",
       },
       {
         name: "Mrs. Whitmore",
         role: "Housekeeper",
-        confidence: "High",
+        risk: "High",
       },
       {
         name: "James Bell",
         role: "Personal Assistant",
-        confidence: "Low",
+        risk: "Low",
       },
     ],
     evidence: [
       {
-        title: "Broken window",
-        description: "Glass fragments found inside the study.",
+        title: "Broken Window",
+        type: "Physical Evidence",
+        description:
+          "Window glass was found inside the room rather than outside.",
+        confidence: "High",
       },
       {
-        title: "Muddy footprint",
-        description: "Partial footprint discovered near the desk.",
+        title: "Muddy Footprint",
+        type: "Trace Evidence",
+        description:
+          "A partial footprint was discovered near the study entrance.",
+        confidence: "Medium",
       },
       {
-        title: "Torn glove",
-        description: "Small piece of dark fabric recovered from the window.",
+        title: "Torn Glove",
+        type: "Physical Evidence",
+        description:
+          "A piece of dark fabric was found underneath the study desk.",
+        confidence: "Medium",
       },
     ],
+    deduction: "The window was likely opened from inside the room.",
+  },
+
+  "31": {
+    id: "31",
+    title: "The Baker Street Letter",
+    status: "Urgent",
+    priority: "Urgent",
+    location: "221B Baker Street",
+    updated: "18 minutes ago",
+    summary:
+      "Inspector Lestrade has requested immediate assistance after a coded letter was delivered to 221B Baker Street. The message appears to reference an ongoing investigation and contains an unidentified sequence of numbers.",
+    progress: 34,
+    suspects: [
+      {
+        name: "Unknown Sender",
+        role: "Letter Author",
+        risk: "High",
+      },
+      {
+        name: "John Turner",
+        role: "Possible Associate",
+        risk: "Medium",
+      },
+      {
+        name: "Mrs. Hudson",
+        role: "Resident",
+        risk: "Low",
+      },
+    ],
+    evidence: [
+      {
+        title: "Coded Letter",
+        type: "Document",
+        description:
+          "A handwritten letter containing a repeated numerical sequence.",
+        confidence: "High",
+      },
+      {
+        title: "Red Wax Seal",
+        type: "Physical Evidence",
+        description:
+          "The envelope carries a partially damaged red wax seal.",
+        confidence: "Medium",
+      },
+      {
+        title: "Unidentified Numbers",
+        type: "Cipher",
+        description:
+          "The sequence may correspond to dates, addresses, or a substitution cipher.",
+        confidence: "Medium",
+      },
+    ],
+    deduction:
+      "The numerical sequence may contain information about the next planned incident.",
+  },
+
+  "42": {
+    id: "42",
+    title: "The Red-Headed Visitor",
+    status: "Waiting",
+    priority: "Important",
+    location: "Westminster",
+    updated: "1 hour ago",
+    summary:
+      "A suspicious visitor with distinctive red hair was reported near Westminster after meeting an unidentified government official. Further witness information is required before the investigation can proceed.",
+    progress: 21,
+    suspects: [
+      {
+        name: "The Red-Headed Visitor",
+        role: "Primary Person of Interest",
+        risk: "Medium",
+      },
+      {
+        name: "Unknown Official",
+        role: "Possible Contact",
+        risk: "Medium",
+      },
+      {
+        name: "Thomas Reed",
+        role: "Witness",
+        risk: "Low",
+      },
+    ],
+    evidence: [
+      {
+        title: "Witness Statement",
+        type: "Testimony",
+        description:
+          "A witness reported seeing the visitor near Westminster shortly after noon.",
+        confidence: "Medium",
+      },
+      {
+        title: "Travel Receipt",
+        type: "Document",
+        description:
+          "A receipt places a person matching the description in the Westminster area.",
+        confidence: "Medium",
+      },
+      {
+        title: "Meeting Location",
+        type: "Observation",
+        description:
+          "The visitor was reportedly seen entering a government building.",
+        confidence: "Low",
+      },
+    ],
+    deduction:
+      "The visitor may have been attempting to establish contact with someone inside the government district.",
   },
 };
 
-export default function CaseDetailPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  return (
-    <CaseContent params={params} />
-  );
+function priorityClass(priority: CaseData["priority"]) {
+  if (priority === "Urgent") {
+    return "border-red-500/30 bg-red-500/10 text-red-400";
+  }
+
+  if (priority === "Critical") {
+    return "border-amber-500/30 bg-amber-500/10 text-amber-400";
+  }
+
+  if (priority === "Important") {
+    return "border-blue-500/30 bg-blue-500/10 text-blue-400";
+  }
+
+  return "border-zinc-700 bg-zinc-900 text-zinc-400";
 }
 
-async function CaseContent({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const { id } = await params;
+function riskClass(risk: Suspect["risk"]) {
+  if (risk === "High") return "text-red-400";
+  if (risk === "Medium") return "text-amber-400";
+  return "text-emerald-400";
+}
 
-  const currentCase =
-    caseData[id as keyof typeof caseData] ?? caseData["27"];
+export default function CaseDetailPage() {
+  const params = useParams();
+  const id = String(params.id);
+
+  const caseData = cases[id] ?? cases["27"];
 
   return (
-    <div className="space-y-8">
-
+    <div className="mx-auto max-w-7xl space-y-6">
       {/* Back */}
       <Link
         href="/cases"
@@ -90,212 +243,222 @@ async function CaseContent({
       </Link>
 
       {/* Header */}
-      <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-start">
+      <section className="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-5 sm:p-7">
+        <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
+          <div>
+            <div className="mb-3 flex flex-wrap items-center gap-2">
+              <span className="text-sm font-medium text-zinc-500">
+                CASE #{caseData.id}
+              </span>
 
-        <div>
-          <div className="flex flex-wrap items-center gap-3">
-            <span className="font-mono text-sm text-amber-500">
-              CASE {currentCase.number}
-            </span>
+              <span
+                className={`rounded-full border px-2.5 py-1 text-xs font-medium ${priorityClass(
+                  caseData.priority
+                )}`}
+              >
+                {caseData.priority}
+              </span>
 
-            <span className="rounded-full border border-amber-900/50 bg-amber-950/20 px-3 py-1 text-xs text-amber-500">
-              {currentCase.status}
-            </span>
+              <span className="rounded-full border border-zinc-700 bg-zinc-900 px-2.5 py-1 text-xs text-zinc-400">
+                {caseData.status}
+              </span>
+            </div>
 
-            <span className="rounded-full border border-red-900/50 bg-red-950/20 px-3 py-1 text-xs text-red-400">
-              {currentCase.priority}
-            </span>
+            <h1 className="font-serif text-3xl text-zinc-100 sm:text-4xl">
+              {caseData.title}
+            </h1>
+
+            <div className="mt-4 flex flex-wrap gap-4 text-sm text-zinc-500">
+              <span className="inline-flex items-center gap-2">
+                <MapPin size={15} />
+                {caseData.location}
+              </span>
+
+              <span className="inline-flex items-center gap-2">
+                <Clock3 size={15} />
+                Updated {caseData.updated}
+              </span>
+            </div>
           </div>
 
-          <h1 className="mt-3 font-serif text-4xl text-zinc-100">
-            {currentCase.title}
-          </h1>
-
-          <div className="mt-4 flex flex-wrap gap-5 text-sm text-zinc-500">
-            <span className="flex items-center gap-2">
-              <MapPin size={15} />
-              {currentCase.location}
-            </span>
-
-            <span className="flex items-center gap-2">
-              <Clock3 size={15} />
-              Updated {currentCase.updated}
-            </span>
-          </div>
+          <Link
+            href={`/deduction-board?case=${caseData.id}`}
+            className="inline-flex items-center justify-center gap-2 rounded-lg border border-amber-600/30 bg-amber-600/10 px-4 py-2.5 text-sm font-medium text-amber-500 transition hover:bg-amber-600/20"
+          >
+            <Network size={16} />
+            Open Deduction Board
+            <ArrowRight size={15} />
+          </Link>
         </div>
+      </section>
 
-        <button className="flex items-center justify-center gap-2 rounded-lg border border-zinc-800 px-5 py-3 text-sm text-zinc-300 transition hover:bg-zinc-900 hover:text-white">
-          <BriefcaseBusiness size={17} />
-          Case Actions
-        </button>
-
-      </div>
-
-      {/* Main grid */}
-      <div className="grid gap-6 lg:grid-cols-[1fr_360px]">
-
-        {/* Left */}
+      <div className="grid gap-6 xl:grid-cols-[1.6fr_1fr]">
+        {/* Main */}
         <div className="space-y-6">
-
           {/* Summary */}
-          <section className="rounded-xl border border-zinc-800 bg-zinc-900/50">
-
-            <div className="flex items-center gap-3 border-b border-zinc-800 p-6">
-              <FileText size={19} className="text-amber-500" />
-
+          <section className="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-5 sm:p-6">
+            <div className="mb-4 flex items-center gap-2">
+              <Search size={18} className="text-amber-500" />
               <h2 className="font-serif text-xl text-zinc-100">
-                Case Summary
+                Investigation Summary
               </h2>
             </div>
 
-            <div className="p-6">
-              <p className="text-sm leading-7 text-zinc-400">
-                {currentCase.summary}
-              </p>
-            </div>
+            <p className="text-sm leading-7 text-zinc-400">
+              {caseData.summary}
+            </p>
 
+            <div className="mt-6">
+              <div className="mb-2 flex items-center justify-between">
+                <span className="text-xs uppercase tracking-wider text-zinc-500">
+                  Investigation Progress
+                </span>
+
+                <span className="text-sm font-medium text-amber-500">
+                  {caseData.progress}%
+                </span>
+              </div>
+
+              <div className="h-2 overflow-hidden rounded-full bg-zinc-800">
+                <div
+                  className="h-full rounded-full bg-amber-500 transition-all"
+                  style={{ width: `${caseData.progress}%` }}
+                />
+              </div>
+            </div>
           </section>
 
           {/* Evidence */}
-          <section className="rounded-xl border border-zinc-800 bg-zinc-900/50">
-
-            <div className="flex items-center justify-between border-b border-zinc-800 p-6">
-              <div className="flex items-center gap-3">
-                <Search size={19} className="text-amber-500" />
-
-                <h2 className="font-serif text-xl text-zinc-100">
-                  Evidence
-                </h2>
-              </div>
-
-              <span className="text-xs text-zinc-600">
-                {currentCase.evidence.length} items
-              </span>
+          <section className="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-5 sm:p-6">
+            <div className="mb-5">
+              <h2 className="font-serif text-xl text-zinc-100">Evidence</h2>
+              <p className="mt-1 text-sm text-zinc-500">
+                Collected observations and physical evidence.
+              </p>
             </div>
 
-            <div className="divide-y divide-zinc-800">
-
-              {currentCase.evidence.map((evidence) => (
+            <div className="space-y-3">
+              {caseData.evidence.map((item) => (
                 <div
-                  key={evidence.title}
-                  className="p-6 transition hover:bg-zinc-900"
+                  key={item.title}
+                  className="rounded-xl border border-zinc-800 bg-zinc-950/60 p-4"
                 >
-                  <h3 className="text-sm font-medium text-zinc-200">
-                    {evidence.title}
-                  </h3>
-
-                  <p className="mt-2 text-sm leading-6 text-zinc-500">
-                    {evidence.description}
-                  </p>
-                </div>
-              ))}
-
-            </div>
-          </section>
-
-          {/* Deduction Board */}
-          <section className="rounded-xl border border-amber-900/30 bg-amber-950/10 p-6">
-
-            <div className="flex gap-4">
-
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-amber-900/20 text-amber-500">
-                <Network size={21} />
-              </div>
-
-              <div className="flex-1">
-                <h2 className="font-serif text-xl text-zinc-100">
-                  Deduction Board
-                </h2>
-
-                <p className="mt-2 text-sm leading-6 text-zinc-500">
-                  Connect evidence, suspects, observations, and deductions
-                  to uncover relationships within this investigation.
-                </p>
-
-                <Link
-                  href={`/deduction-board?case=${currentCase.number.replace("#", "")}`}
-                  className="mt-5 inline-flex items-center gap-2 rounded-lg bg-amber-600 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-amber-500"
-                >
-                  Open Deduction Board
-                  <ArrowRight size={16} />
-                </Link>
-              </div>
-
-            </div>
-
-          </section>
-
-        </div>
-
-        {/* Right */}
-        <aside className="space-y-6">
-
-          {/* Suspects */}
-          <section className="rounded-xl border border-zinc-800 bg-zinc-900/50">
-
-            <div className="flex items-center gap-3 border-b border-zinc-800 p-6">
-              <UserRound size={19} className="text-amber-500" />
-
-              <h2 className="font-serif text-xl text-zinc-100">
-                Suspects
-              </h2>
-            </div>
-
-            <div className="divide-y divide-zinc-800">
-
-              {currentCase.suspects.map((suspect) => (
-                <div
-                  key={suspect.name}
-                  className="p-5"
-                >
-                  <div className="flex items-start justify-between gap-3">
-
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                     <div>
-                      <p className="text-sm font-medium text-zinc-200">
-                        {suspect.name}
-                      </p>
+                      <h3 className="font-medium text-zinc-200">
+                        {item.title}
+                      </h3>
 
-                      <p className="mt-1 text-xs text-zinc-600">
-                        {suspect.role}
+                      <p className="mt-1 text-xs text-zinc-500">
+                        {item.type}
                       </p>
                     </div>
 
-                    <span className="text-xs text-zinc-500">
-                      {suspect.confidence}
+                    <span className={`text-xs ${riskClass(item.confidence)}`}>
+                      {item.confidence} confidence
                     </span>
-
                   </div>
+
+                  <p className="mt-3 text-sm leading-6 text-zinc-400">
+                    {item.description}
+                  </p>
                 </div>
               ))}
+            </div>
+          </section>
+        </div>
 
+        {/* Sidebar */}
+        <div className="space-y-6">
+          {/* Suspects */}
+          <section className="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-5 sm:p-6">
+            <div className="mb-5">
+              <h2 className="font-serif text-xl text-zinc-100">Persons of Interest</h2>
+              <p className="mt-1 text-sm text-zinc-500">
+                Individuals currently connected to the case.
+              </p>
+            </div>
+
+            <div className="space-y-3">
+              {caseData.suspects.map((suspect) => (
+                <div
+                  key={suspect.name}
+                  className="flex items-center gap-3 rounded-xl border border-zinc-800 bg-zinc-950/60 p-3"
+                >
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-zinc-800 text-zinc-500">
+                    <User size={18} />
+                  </div>
+
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate text-sm font-medium text-zinc-200">
+                      {suspect.name}
+                    </p>
+
+                    <p className="truncate text-xs text-zinc-500">
+                      {suspect.role}
+                    </p>
+                  </div>
+
+                  <span className={`text-xs ${riskClass(suspect.risk)}`}>
+                    {suspect.risk}
+                  </span>
+                </div>
+              ))}
             </div>
           </section>
 
-          {/* Investigation status */}
-          <section className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-6">
+          {/* Deduction Assistant */}
+          <section className="rounded-2xl border border-amber-600/20 bg-amber-600/5 p-5 sm:p-6">
+            <div className="flex items-start gap-3">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-amber-600/10 text-amber-500">
+                <Network size={18} />
+              </div>
 
-            <p className="text-xs uppercase tracking-widest text-zinc-600">
-              Investigation Progress
-            </p>
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-wider text-amber-500">
+                  Deduction Assistant
+                </p>
 
-            <div className="mt-5 h-2 overflow-hidden rounded-full bg-zinc-800">
-              <div className="h-full w-[68%] rounded-full bg-amber-600" />
+                <p className="mt-2 text-sm leading-6 text-zinc-300">
+                  {caseData.deduction}
+                </p>
+              </div>
             </div>
-
-            <div className="mt-3 flex justify-between text-xs">
-              <span className="text-zinc-500">
-                Evidence collected
-              </span>
-
-              <span className="text-amber-500">
-                68%
-              </span>
-            </div>
-
           </section>
 
-        </aside>
+          {/* Critical Alert */}
+          {caseData.priority === "Urgent" ||
+          caseData.priority === "Critical" ? (
+            <section className="rounded-2xl border border-red-500/20 bg-red-500/5 p-5">
+              <div className="flex gap-3">
+                <ShieldAlert
+                  size={20}
+                  className="mt-0.5 shrink-0 text-red-400"
+                />
 
+                <div>
+                  <h3 className="text-sm font-medium text-red-400">
+                    Immediate Attention Required
+                  </h3>
+
+                  <p className="mt-2 text-xs leading-5 text-zinc-500">
+                    This case has been marked {caseData.priority.toLowerCase()}.
+                    Review related evidence and schedule your next investigative
+                    action.
+                  </p>
+
+                  <Link
+                    href="/schedule"
+                    className="mt-4 inline-flex items-center gap-2 text-xs font-medium text-red-400 hover:text-red-300"
+                  >
+                    Review Schedule
+                    <ArrowRight size={14} />
+                  </Link>
+                </div>
+              </div>
+            </section>
+          ) : null}
+        </div>
       </div>
     </div>
   );

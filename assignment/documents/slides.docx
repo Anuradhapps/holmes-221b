@@ -1,0 +1,278 @@
+221B — Holmes Personal Intelligence System
+UOVT UX/UI Assignment Presentation
+Slide 1 — Title
+
+221B — Holmes Personal Intelligence System
+
+A Personal Scheduling & Investigation Interface for Sherlock Holmes
+
+Include:
+
+Your name
+Student ID
+Module name
+Faculty / University
+Date
+
+Visual: dark Sherlock Holmes / 221B-inspired background with minimal decoration.
+
+Slide 2 — Selected User
+
+Sherlock Holmes
+
+Occupation: Consulting Detective
+Base: 221B Baker Street, London
+
+Why Sherlock Holmes?
+
+Manages multiple investigations simultaneously
+Receives unexpected urgent cases
+Analyses large amounts of evidence
+Frequently travels between locations
+Needs to make rapid decisions
+Requires organised information for deductions
+
+Design goal:
+
+Create a system that helps Holmes manage his schedule and investigations without interrupting his reasoning process.
+
+Slide 3 — User Profile
+
+User Persona
+
+Attribute	Description
+Name	Sherlock Holmes
+Role	Consulting Detective
+Environment	London
+Primary workspace	221B Baker Street
+Main activities	Investigation, analysis, consultation
+Technology need	Fast access to relevant information
+Primary goal	Solve cases efficiently
+
+Key characteristic:
+
+Holmes needs information to be structured, prioritised and immediately actionable.
+
+Slide 4 — User Problems & Limitations
+
+Contextual Challenges
+
+Multiple investigations at the same time
+Unpredictable urgent cases
+Large quantities of evidence
+Competing appointments
+Frequent travel
+Information overload
+Rapid decision-making
+Difficulty distinguishing routine activities from critical events
+UX Problem
+
+How can Holmes manage a changing daily schedule while simultaneously tracking investigations and making rapid decisions?
+
+Slide 5 — User Requirements
+
+Functional Requirements
+
+The system should allow Holmes to:
+
+View today's schedule
+Add and manage events
+Detect schedule conflicts
+View active cases
+Review case details
+Manage evidence
+Organise deductions
+Track tasks
+Monitor investigation locations
+Receive notifications
+UX Requirements
+
+The interface should be:
+
+Fast
+Clear
+Prioritised
+Consistent
+Responsive
+Easy to navigate
+Slide 6 — Information Architecture
+
+Show this as a visual hierarchy:
+
+                 221B
+                   │
+       ┌───────────┼───────────┐
+       │           │           │
+   Dashboard    Schedule     Cases
+                               │
+                    ┌──────────┼──────────┐
+                    │          │          │
+                 Evidence   Suspects   Deductions
+                   
+       ┌────────────┼────────────┐
+       │            │            │
+     Tasks      Locations   Notifications
+                    │
+                 Settings
+
+Explain:
+
+The navigation is organised around Holmes' primary activities rather than technical system functions.
+
+Slide 7 — User Journey
+
+Urgent Investigation Workflow
+
+Urgent Case Received
+        ↓
+   Notification
+        ↓
+     Dashboard
+        ↓
+     Case #31
+        ↓
+   Case Details
+        ↓
+      Schedule
+        ↓
+ Conflict Detected
+        ↓
+Review Alternatives
+        ↓
+Reschedule Existing Event
+        ↓
+ Updated Schedule
+
+UX objective:
+
+Reduce the number of decisions the user must make manually.
+
+Slide 8 — Interface Design
+
+Visual Design
+
+Use screenshots from your actual application.
+
+Explain:
+
+Colour
+
+Charcoal / near-black background
+Ivory text
+Muted amber/brass accent
+Red/burgundy for urgent information
+
+Typography
+
+Serif headings
+Sans-serif interface text
+
+Style
+
+Victorian character combined with a modern intelligence-management interface.
+
+Add your Dashboard screenshot here.
+
+Slide 9 — Main Interface
+
+Title:
+
+Today's Intelligence Dashboard
+
+Add your dashboard screenshot.
+
+Point out:
+
+Today's events
+Active cases
+Next event
+Urgent investigation
+Schedule priorities
+System observation
+
+Then explain:
+
+The dashboard gives Holmes a high-level overview before he enters individual investigations.
+
+Slide 10 — Intelligent UX Feature
+Schedule Conflict Detection
+
+This should be one of your strongest slides.
+
+Show the conflict modal screenshot.
+
+Example:
+
+Existing Event
+14:00 – 15:30
+Evidence Analysis — Case #27
+
+             ↓
+
+New Urgent Event
+14:30 – 16:00
+Scotland Yard Investigation
+
+             ↓
+
+60 MINUTE OVERLAP
+
+The system provides:
+
+Reschedule existing event
+Accept both events
+Cancel new investigation
+Why this matters
+
+Instead of allowing the user to discover the conflict manually, the system proactively identifies it and presents possible actions.
+
+Slide 11 — Investigation & Deduction Interface
+
+Add your Case Details + Deduction Board screenshots.
+
+Show:
+
+Case Details
+
+Investigation progress
+Evidence
+Persons of interest
+Deduction assistant
+
+Deduction Board
+
+Evidence
+   ↓
+Observation
+   ↓
+Suspect
+   ↓
+Deduction
+
+Explain:
+
+The Deduction Board converts unstructured investigation information into a visual reasoning structure.
+
+Slide 12 — Usability Testing & Conclusion
+Usability Testing
+
+Participant:
+
+An accessible representative user rather than Sherlock Holmes, since Holmes is fictional.
+
+Testing tasks:
+
+Find urgent investigation
+Open Case #31
+Review case
+Open schedule
+Add urgent investigation
+Identify conflict
+Resolve conflict
+Open Deduction Board
+
+Then include actual findings after your test.
+
+Conclusion
+
+The 221B interface combines scheduling, investigation management and intelligent prioritisation into a single responsive system designed around Sherlock Holmes' workflow.

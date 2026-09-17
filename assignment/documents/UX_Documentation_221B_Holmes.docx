@@ -1,0 +1,359 @@
+15.2 Project Overview
+
+Use this as the content:
+
+Project Title
+
+221B — Holmes Personal Intelligence System
+
+Concept
+
+221B is a personal intelligence and investigation management interface designed around the working style of Sherlock Holmes.
+
+The system combines daily scheduling, investigation management, evidence organisation, tasks, locations and notifications into a single interface.
+
+The central UX concept is that Holmes should not need to manually coordinate every part of his working day. The system should identify important information and bring potential conflicts or urgent investigations to his attention.
+
+Main Objective
+
+The objective is to design an interface that allows the user to:
+
+view the daily schedule
+manage investigations
+monitor urgent cases
+organise evidence
+record deductions
+manage tasks
+monitor important locations
+receive notifications
+detect scheduling conflicts
+15.3 Target User
+Sherlock Holmes
+
+Occupation: Consulting Detective
+Location: 221B Baker Street, London
+Interface type: Personal intelligence and investigation management system
+
+Sherlock Holmes was selected because his activities involve multiple simultaneous investigations, rapid analysis, meetings, evidence collection and unpredictable changes to his schedule.
+
+The interface therefore focuses on information prioritisation and intelligent scheduling rather than simply presenting a conventional calendar.
+
+15.4 User Goals
+
+The interface was designed around these goals:
+
+Goal	UX Requirement
+Know what needs attention	Prioritised dashboard
+Manage daily activities	Schedule
+Handle urgent investigations	Urgent case notifications
+Avoid schedule conflicts	Conflict detection
+Analyse evidence	Deduction Board
+Track investigations	Case management
+Manage actions	Task management
+Find investigation locations	Location management
+Review important messages	Notifications
+15.5 User Limitations
+
+These are contextual limitations, not medical assumptions.
+
+High workload
+
+Holmes may manage several investigations simultaneously.
+
+Unpredictable cases
+
+An urgent investigation may appear while another activity is already scheduled.
+
+Information overload
+
+Investigations can contain large amounts of evidence, observations and people of interest.
+
+Rapid decision-making
+
+Important decisions may need to be made quickly.
+
+Frequent travel
+
+Holmes may move between 221B Baker Street, Scotland Yard and crime scenes.
+
+Competing priorities
+
+Routine activities may need to be interrupted when a critical investigation appears.
+
+Complex reasoning
+
+Evidence must be connected to observations, suspects and deductions.
+
+15.6 Main UX Problem
+
+The main problem identified is:
+
+How can Sherlock Holmes manage a changing daily schedule while simultaneously tracking multiple investigations and making rapid decisions from large amounts of information?
+
+The interface addresses this through:
+
+Prioritisation + intelligent notifications + conflict detection + structured investigation information.
+
+15.7 Information Architecture
+
+Document the application structure like this:
+
+221B Holmes Intelligence System
+│
+├── Dashboard
+│   ├── Today's Events
+│   ├── Active Cases
+│   ├── Urgent Investigation
+│   └── System Observations
+│
+├── Schedule
+│   ├── Daily Events
+│   ├── Add Event
+│   └── Conflict Detection
+│
+├── Cases
+│   ├── Case List
+│   └── Case Details
+│       ├── Summary
+│       ├── Evidence
+│       ├── Persons of Interest
+│       └── Deduction Assistant
+│
+├── Deduction Board
+│   ├── Evidence
+│   ├── Observations
+│   ├── Suspects
+│   └── Deductions
+│
+├── Tasks
+│
+├── Locations
+│
+├── Notifications
+│
+└── Settings
+15.8 Primary User Journey
+
+Your main UX journey is:
+
+Urgent Investigation Received
+             ↓
+      Notification
+             ↓
+         Dashboard
+             ↓
+        Review Case
+             ↓
+       Case Details
+             ↓
+      Review Schedule
+             ↓
+    Schedule Conflict
+             ↓
+    Conflict Assistant
+             ↓
+     Review Alternatives
+             ↓
+   Reschedule Existing Event
+             ↓
+     Confirm New Schedule
+             ↓
+       Updated Schedule
+
+This is the main story of your UX assignment.
+
+15.9 Intelligent UX Feature
+Schedule Conflict Detection
+
+This is your strongest unique UX feature.
+
+Suppose Holmes already has:
+
+14:00 – 15:30
+Evidence Analysis — Case #27
+
+A new urgent investigation arrives:
+
+14:30 – 16:00
+Scotland Yard Investigation
+
+The system calculates:
+
+Existing event
+14:00 ───────── 15:30
+
+New event
+14:30 ───────────── 16:00
+       ↑
+       60-minute overlap
+
+Instead of simply allowing the conflict, the interface informs Holmes:
+
+Schedule conflict detected
+
+and provides:
+
+Reschedule existing event
+Accept both events
+Cancel new investigation
+
+This demonstrates proactive UX rather than passive information display.
+
+15.10 Usability Testing
+
+For the assignment, test the prototype using another person.
+
+Test participant
+
+Use an actual participant and record:
+
+Participant ID
+Age range
+Occupation/student status
+Previous experience with web applications
+Date of test
+
+Avoid unnecessary personal information.
+
+Testing scenario
+
+Give the participant this scenario:
+
+You are using Sherlock Holmes' personal intelligence system. An urgent investigation request has arrived from Inspector Lestrade. Review the case, check Holmes' schedule, identify the scheduling conflict and resolve it without losing the urgent investigation.
+
+Tasks
+
+Ask the participant to:
+
+Find the urgent investigation.
+Open Case #31.
+Review the case information.
+Open the schedule.
+Add the new investigation at 14:30.
+Identify the schedule conflict.
+Review the available options.
+Reschedule the existing event.
+Confirm the updated schedule.
+Open the Deduction Board.
+15.11 Feedback
+
+Don't invent feedback.
+
+Create a table and fill it after you actually test:
+
+Task	Participant Action	Difficulty	Feedback	Change Required
+Find urgent case				
+Open Case #31				
+Review schedule				
+Detect conflict				
+Resolve conflict				
+Open Deduction Board				
+
+This is important because your lecturer can see that the design was iterated based on testing, rather than simply claiming that users liked it.
+
+15.12 Version Development
+
+You can document your development as:
+
+Version 1
+
+Basic interface containing:
+
+Dashboard
+Schedule
+Cases
+Case details
+Deduction Board
+Tasks
+Locations
+Notifications
+Settings
+Version 2
+
+Improvements:
+
+responsive navigation
+mobile sidebar
+improved cards
+clearer priority indicators
+improved modal interactions
+case-specific details
+improved Deduction Board
+Version 3
+
+Final version should include improvements discovered during usability testing.
+
+15.13 Visual Design
+Colour system
+Background       Near black / charcoal
+Primary surface  Dark zinc
+Text             Ivory / light grey
+Accent           Muted brass / amber
+Critical         Amber
+Urgent           Burgundy / red
+Secondary        Muted grey
+Typography
+
+Use:
+
+Serif typography for major headings
+Sans-serif typography for interface controls and data
+
+This creates a visual connection to the Victorian Sherlock Holmes setting while maintaining modern usability.
+
+Design principle
+
+The interface deliberately avoids excessive Victorian decoration.
+
+The goal is:
+
+Victorian character + modern intelligence interface
+
+rather than making the application look like a historical museum website.
+
+15.14 Responsive Design
+
+The interface supports:
+
+Desktop
+Sidebar + Header + Main Content
+Tablet
+Collapsible navigation
+Flexible content grids
+Mobile
+Hamburger
+     ↓
+Mobile navigation
+     ↓
+Single-column content
+
+The design should remain usable at approximately:
+
+390 × 844
+15.15 Accessibility Considerations
+
+Document these:
+
+sufficient text/background contrast
+clear button labels
+icons accompanied by meaningful labels where appropriate
+consistent navigation
+visible focus/hover states
+responsive layouts
+readable typography
+important information communicated through text, not colour alone
+15.16 Conclusion
+
+Your conclusion should explain that the interface was designed around the specific workflow and contextual demands of the selected user, rather than simply creating a generic dashboard.
+
+The most important UX contribution is the combination of:
+
+Daily Schedule
+      +
+Investigation Management
+      +
+Information Prioritisation
+      +
+Conflict Detection
+      +
+Deduction Organisation
